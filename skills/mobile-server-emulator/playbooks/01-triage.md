@@ -20,7 +20,7 @@ aapt dump badging cases/<slug>/client/apk/game.apk | tee cases/<slug>/logs/badgi
 
 4. Review with [engine-fingerprint.md](../references/engine-fingerprint.md). Document in `client/engine.md` if triage differs.
 5. Search GitHub per [open-source-catalog.md](../references/open-source-catalog.md). Record URL or “none” in `REPORT.md`.
-6. Read [routing.md](../routing.md) and open the next playbook only.
+6. Read [routing.md](../routing.md) and open [01-unpack.md](01-unpack.md) next. Do not redirect yet.
 
 ## Done when
 

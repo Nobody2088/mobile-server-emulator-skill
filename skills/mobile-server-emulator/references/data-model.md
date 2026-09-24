@@ -40,6 +40,8 @@ Promote fields from `blob_json` to columns after three handlers use them.
 
 Game state stays in SQLite — not in frp config or client APK.
 
+Master tables (characters, monsters, maps, items, skills, quests, activities) are read-only copies of `docs/master-data/`. Key them by those IDs. Do not insert an ID the catalog does not list. Account and character rows stay writable.
+
 ## Identity
 
 Use token/uid/session field names from PKT notes for post-login auth.

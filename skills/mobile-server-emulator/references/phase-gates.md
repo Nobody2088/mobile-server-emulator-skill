@@ -15,15 +15,29 @@ Do not advance without exit evidence. Check boxes in `REPORT.md` with evidence I
 
 **Rollback:** APK not a zip → `unzip -t` before jadx.
 
-## Stage 1 · Redirect
+## Stage 0b · Unpack
 
-**Enter:** Stage 0 complete.
+**Enter:** Stage 0 complete. `apktool_out` exists or `decode-client.sh` can create it.
 
 **Exit:**
 
-- [ ] `client/redirect-notes.md` maps official → target hosts
-- [ ] Runtime proof: logcat, proxy, or connect log shows traffic to **your** host
-- [ ] If repacked: file list, old/new values, resign/install command
+- [ ] `docs/index.md` lists source path, format, and row count or `unparsed`
+- [ ] `docs/endpoints.md` exists; gateway and update rows are filled or marked absent with the search command
+- [ ] `docs/boot-sequence.md` exists
+- [ ] `docs/master-data/` has characters, monsters, maps, activities, items, skills, quests
+
+**Rollback:** No table hits → record the find command and check Addressables / downloaded CDN before inventing IDs.
+
+## Stage 1 · Redirect
+
+**Enter:** Stage 0b complete.
+
+**Exit:**
+
+- [ ] `client/redirect-notes.md` and `docs/endpoints.md` map official → target for gateway and update, not only login
+- [ ] Target is an IPv4, IPv6, or domain, with hardcoded ports noted
+- [ ] Runtime proof: logcat, proxy, or connect log shows gateway and update traffic to **your** IP or domain
+- [ ] If repacked: file list, old/new values, length check, resign/install command
 
 **Rollback:** Still hits official → [failure-catalog.md](failure-catalog.md) `F-REDIRECT-*`. Do not write login handlers yet.
 

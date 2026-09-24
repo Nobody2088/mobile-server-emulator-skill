@@ -28,7 +28,8 @@ Use `triage-client.sh` JSON plus [engine-fingerprint.md](references/engine-finge
 
 - Plain HTTP JSON in capture → HTTP stub server OK
 - Binary + protobuf → proto-extract before handlers
-- Login still hits official → back to stage 1
+- Unpack catalog missing → stage 0b before redirect
+- Login still hits official, or gateway/update still official → back to stage 1
 - Multiplayer → stage 4 tunnel-setup
 
 ## Adjacent skills

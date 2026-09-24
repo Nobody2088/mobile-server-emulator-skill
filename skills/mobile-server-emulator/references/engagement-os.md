@@ -24,7 +24,14 @@ cases/<slug>/
 │   ├── apk/
 │   ├── jadx_out/
 │   ├── apktool_out/
+│   ├── il2cpp/
+│   ├── endpoints.md
 │   └── redirect-notes.md
+├── docs/
+│   ├── index.md
+│   ├── endpoints.md
+│   ├── boot-sequence.md
+│   └── master-data/
 ├── capture/
 │   ├── notes.md
 │   └── samples/
@@ -41,6 +48,7 @@ cases/<slug>/
 |--------|---------|
 | `EV-DOC` | Environment |
 | `EV-TRI` | Triage |
+| `EV-CAT` | Unpack catalog |
 | `EV-RED` | Redirect works |
 | `EV-PKT` | One message |
 | `EV-SRV` | Handler behavior |

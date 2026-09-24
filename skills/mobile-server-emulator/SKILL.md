@@ -1,6 +1,6 @@
 ---
 name: mobile-server-emulator
-description: 端到端 Android 手游服务端模拟器工作流。把客户端重定向到自己的主机，抓取并还原 HTTP、TCP、WebSocket 和 Protobuf 流量，从登录、角色列表、进入世界到心跳搭起最小伪服务端，再用 frp 或 ngrok 暴露出去。包含分诊、解码、改地址、抓包、提取协议、Frida 钩子、服务端启动和隧道脚本，以及 Unity IL2CPP、Cocos、原生 Java 客户端的阶段手册。用于服务端模拟器、私服、协议还原、IL2CPP、伪服务端或游戏服务端重写。
+description: 端到端 Android 手游服务端模拟器工作流。先深解包客户端，把网关、更新、热更、资源、登录、区服、公告和远程配置全部记下来，再改到自己的内网地址或域名。把人物、怪物、地图、活动、道具、技能、任务写成文档，服务端只使用这些编号。随后抓包还原协议，从登录、角色、进图到心跳搭起伪服务端。用于服务端模拟器、私服、协议还原、IL2CPP、伪服务端或游戏服务端重写。
 when_to_use: Use when the user mentions server emulator, private server, game server rewrite, stub server, protocol recovery, packet capture, Protobuf, IL2CPP, repack APK, DNS hijack, adb reverse, frp, ngrok, login handler, or a case folder with an engagement report.
 activation_keywords: server emulator, private server, protocol recovery, IL2CPP, protobuf, stub server, adb reverse, frp, ngrok, mitmproxy, frida, jadx, apktool, game server rewrite, packet capture
 ---
@@ -35,6 +35,7 @@ This skill is a **case operating system**, not a ready-made server for one game.
 Playbooks:
 
 - [playbooks/01-triage.md](playbooks/01-triage.md)
+- [playbooks/01-unpack.md](playbooks/01-unpack.md)
 - [playbooks/02-redirect.md](playbooks/02-redirect.md)
 - [playbooks/03-protocol.md](playbooks/03-protocol.md)
 - [playbooks/04-server.md](playbooks/04-server.md)
@@ -43,6 +44,8 @@ Playbooks:
 Topic references (open on demand):
 
 - [client-redirect.md](references/client-redirect.md)
+- [client-catalog.md](references/client-catalog.md)
+- [server-deduction-checklist.md](references/server-deduction-checklist.md)
 - [unity-il2cpp.md](references/unity-il2cpp.md)
 - [protobuf-workflow.md](references/protobuf-workflow.md)
 - [wire-protocol.md](references/wire-protocol.md)
@@ -57,14 +60,15 @@ Topic references (open on demand):
 ## 2. Stage machine
 
 ```
-Workspace → 0 Triage → 1 Redirect → 2 Protocol → 3 Server → 4 Tunnel
+Workspace → 0 Triage → 0b Unpack → 1 Redirect → 2 Protocol → 3 Server → 4 Tunnel
               ↑________ failure-catalog: still hits official / parse fail / crash ________|
 ```
 
 | Stage | Entry | Exit evidence | Playbook |
 |-------|-------|---------------|----------|
 | 0 | `triage-client.sh` | `01-triage.json` | 01 |
-| 1 | `decode-client.sh` / `patch-endpoint.sh` | Client logs show your host | 02 |
+| 0b | `catalog-client.sh` / `catalog-endpoints.sh` | `docs/index.md` + `docs/endpoints.md` | 01-unpack |
+| 1 | `decode-client.sh` / `patch-endpoint.sh` | Gateway and update hit your IP or domain | 02 |
 | 2 | `capture-traffic.sh` / `proto-extract.sh` | ≥1 reproducible message note | 03 |
 | 3 | `server-bootstrap.sh` | Login success + readable character | 04 |
 | 4 | `tunnel-setup.sh` | Port map + second device connects | 05 |
@@ -86,6 +90,8 @@ Structure: [engagement-os.md](references/engagement-os.md).
 | `doctor.sh` | Tool presence JSON |
 | `init-workspace.sh` | Case skeleton + report draft |
 | `triage-client.sh` | Engine / URLs / recommended_path |
+| `catalog-client.sh` | `docs/index.md` + master-data stubs |
+| `catalog-endpoints.sh` | `docs/endpoints.md` (no patch) |
 | `decode-client.sh` | `jadx_out` + `apktool_out` |
 | `patch-endpoint.sh` | URL report or assets/DNS plan |
 | `capture-traffic.sh` | Proxy + cert steps |
@@ -121,6 +127,7 @@ Use [failure-catalog.md](references/failure-catalog.md) by symptom ID. Two attem
 Fill [templates/report/ENGAGEMENT.md](templates/report/ENGAGEMENT.md) with:
 
 - Triage JSON path
+- Catalog index and endpoint map (gateway, update, domain or LAN IP)
 - Official vs local host mapping
 - Protocol note list
 - Implemented handlers + unknown messages

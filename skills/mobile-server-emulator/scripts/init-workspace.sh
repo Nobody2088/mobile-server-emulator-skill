@@ -31,7 +31,7 @@ TITLE="${TITLE:-$SLUG}"
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 
-mkdir -p "$OUT"/{client/apk,capture/samples,protocol,server,tunnel,logs}
+mkdir -p "$OUT"/{client/apk,client/il2cpp,capture/samples,protocol,server,tunnel,logs,docs/master-data}
 
 cp "$ROOT/templates/report/ENGAGEMENT.md" "$OUT/REPORT.md"
 cp "$ROOT/templates/protocol/PACKET.md" "$OUT/protocol/PKT-000-template.md"
@@ -39,11 +39,14 @@ cp "$ROOT/templates/protocol/PACKET.md" "$OUT/protocol/PKT-000-template.md"
 cat > "$OUT/client/redirect-notes.md" <<EOF
 # Host mapping
 
-| Role | Official | Target | Evidence |
-|------|----------|--------|----------|
-| Login | | | |
-| Game | | | |
-| CDN | | | |
+| Role | Official | Target (IP or domain) | Port | Evidence |
+|------|----------|----------------------|------|----------|
+| update | | | | |
+| cdn | | | | |
+| gateway | | | | |
+| login | | | | |
+| zone | | | | |
+| game | | | | |
 EOF
 
 cat > "$OUT/client/engine.md" <<EOF

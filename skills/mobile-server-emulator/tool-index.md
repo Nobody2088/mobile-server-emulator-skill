@@ -38,6 +38,7 @@ Run `scripts/doctor.sh` first; install only what the current playbook needs.
 | `doctor.sh` | workspace |
 | `init-workspace.sh` | workspace |
 | `triage-client.sh` | 0 |
+| `catalog-client.sh` / `catalog-endpoints.sh` | 0b |
 | `decode-client.sh` / `patch-endpoint.sh` | 1 |
 | `capture-traffic.sh` / `proto-extract.sh` / `frida-hook-run.sh` | 2 |
 | `server-bootstrap.sh` | 3 |
