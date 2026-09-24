@@ -1,6 +1,6 @@
 ---
 name: mobile-server-emulator
-description: End-to-end Android mobile game server emulator workflow. Redirect the client to your own host, capture and recover HTTP, TCP, WebSocket, and Protobuf traffic, bootstrap a stub server from login through character list, world entry, and heartbeat, then expose it with frp or ngrok. Includes triage, decode, endpoint patch, packet capture, proto extract, Frida hooks, server bootstrap, and tunnel scripts, plus stage playbooks for Unity IL2CPP, Cocos, and native Java clients. Use for server emulator, private server, protocol recovery, IL2CPP, stub server, or game server rewrite.
+description: 端到端 Android 手游服务端模拟器工作流。把客户端重定向到自己的主机，抓取并还原 HTTP、TCP、WebSocket 和 Protobuf 流量，从登录、角色列表、进入世界到心跳搭起最小伪服务端，再用 frp 或 ngrok 暴露出去。包含分诊、解码、改地址、抓包、提取协议、Frida 钩子、服务端启动和隧道脚本，以及 Unity IL2CPP、Cocos、原生 Java 客户端的阶段手册。用于服务端模拟器、私服、协议还原、IL2CPP、伪服务端或游戏服务端重写。
 when_to_use: Use when the user mentions server emulator, private server, game server rewrite, stub server, protocol recovery, packet capture, Protobuf, IL2CPP, repack APK, DNS hijack, adb reverse, frp, ngrok, login handler, or a case folder with an engagement report.
 activation_keywords: server emulator, private server, protocol recovery, IL2CPP, protobuf, stub server, adb reverse, frp, ngrok, mitmproxy, frida, jadx, apktool, game server rewrite, packet capture
 ---
