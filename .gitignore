@@ -1,0 +1,27 @@
+# User artifacts — never commit
+*.apk
+*.xapk
+*.aab
+*.keystore
+*.jks
+*.pcap
+*.pcapng
+*_emu/
+apktool_out/
+jadx_out/
+il2cpp_out/
+
+# Python / Node server runtime
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+*.db
+*.sqlite
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

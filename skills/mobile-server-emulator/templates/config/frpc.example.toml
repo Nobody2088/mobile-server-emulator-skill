@@ -1,0 +1,11 @@
+# frpc client snippet — edit server_addr / token, run: frpc -c frpc.generated.toml
+serverAddr = "YOUR_VPS_IP"
+serverPort = 7000
+auth.token = "YOUR_FRP_TOKEN"
+
+[[proxies]]
+name = "game-http"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = {{LOCAL_PORT}}
+remotePort = {{REMOTE_PORT}}
