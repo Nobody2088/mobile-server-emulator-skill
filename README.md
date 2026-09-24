@@ -2,22 +2,23 @@
 
 Universal Agent skill for **mobile game server emulator development** — a case-based workflow (redirect client → capture protocol → stub server → tunnel), not a single-game bypass.
 
-**Includes:** 10 bash scripts, 5 stage playbooks, phase gates, protocol note templates, failure catalog, Python/Node server stubs, Frida hooks. **Engines:** Unity IL2CPP, Cocos, native Java/OkHttp. **Works with:** Cursor, Codex, Claude Code, ZCode CLI, [Agent Skills](https://skills.sh/).
+**Includes:** 12 bash scripts, stage playbooks from triage through tunnel (including unpack), phase gates, protocol note templates, failure catalog, Python/Node server stubs, Frida hooks. **Engines:** Unity IL2CPP, Cocos, native Java/OkHttp. **Works with:** Cursor, Codex, Claude Code, ZCode CLI, [Agent Skills](https://skills.sh/).
 
 The skill directory ships `_meta.json` with a full display description and activation keywords so ZCode/Cursor skill pickers show rich text instead of the generic “skill in group X” placeholder.
 
 ## What it covers
 
-- Client endpoint redirection (APK, DNS, adb reverse)
+- Client unpack into endpoint and master-data docs (characters, monsters, maps, activities, items, skills, quests)
+- Endpoint redirection to a LAN IP or a domain (gateway and update, not only login)
 - Traffic capture and protocol recovery (HTTPS, Protobuf, custom framing)
-- Minimal stub game server (login → character → enter world)
+- Stub server for register, login token, create character, and enter-game gate token
 - Tunneling and multiplayer (frp, ngrok, adb reverse)
 
 ## Workflow
 
 1. `scripts/init-workspace.sh` — create `cases/<slug>/`
 2. `scripts/doctor.sh` + `scripts/triage-client.sh`
-3. Playbooks 01→05 with phase gates in `references/phase-gates.md`
+3. Playbooks `01-triage`, `01-unpack`, then `02` through `05`, with phase gates in `references/phase-gates.md`
 4. Close with `templates/report/ENGAGEMENT.md`
 
 ## Install
@@ -62,7 +63,7 @@ skills/mobile-server-emulator/
 ├── SKILL.md
 ├── tool-index.md
 ├── routing.md
-├── playbooks/       # Stage playbooks 01–05
+├── playbooks/       # Triage, unpack, redirect, protocol, server, tunnel
 ├── scripts/
 ├── references/
 └── templates/
