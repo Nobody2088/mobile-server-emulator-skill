@@ -1,0 +1,33 @@
+{
+  "descriptionZh": "End-to-end mobile game server emulator development for Android clients — a case-based operating system, not a one-game cheat sheet. Redirect the client to your host (APK/assets patch, DNS, adb reverse, Frida connect hook), capture and reverse HTTP/TCP/WebSocket traffic (mitmproxy, Protobuf, custom framing), bootstrap a minimal stub server with login → character → enter-world → heartbeat handlers, and tunnel via frp/ngrok for multiplayer. Includes: doctor/init-workspace/triage/decode/patch-endpoint/capture-traffic/proto-extract/frida-hook-run/server-bootstrap/tunnel-setup scripts; five stage playbooks; phase gates; PKT protocol notes; failure catalog; Python/Node stubs; Frida templates. Engines: Unity IL2CPP, Cocos, native Java. Companion skills: apk-reverse, rev-u3d-dump, rev-frida.",
+  "activationKeywords": [
+    "server emulator",
+    "private server",
+    "protocol recovery",
+    "IL2CPP",
+    "protobuf",
+    "stub server",
+    "adb reverse",
+    "frp",
+    "ngrok",
+    "mitmproxy",
+    "frida",
+    "jadx",
+    "apktool",
+    "login handler",
+    "game server rewrite",
+    "packet capture",
+    "wire protocol",
+    "repack APK",
+    "DNS hijack",
+    "tunnel",
+    "multiplayer"
+  ],
+  "source": {
+    "provider": "github",
+    "owner": "Nobody2088",
+    "repo": "mobile-server-emulator-skill",
+    "url": "https://github.com/Nobody2088/mobile-server-emulator-skill",
+    "commit": "main"
+  }
+}

@@ -1,11 +1,28 @@
 ---
 name: mobile-server-emulator
 description: >
-  Mobile game server emulator development workflow. Covers Android clients:
-  case workspace, engine fingerprinting, endpoint redirection, traffic capture,
-  Protobuf and custom framing, minimal stub server, tunneling and multiplayer.
-  Triggers: server emulator, private server, protocol recovery, IL2CPP,
-  stub server, game server rewrite.
+  End-to-end mobile game server emulator development for Android clients — a
+  case-based operating system, not a one-game cheat sheet. Use when you need to
+  redirect a game client to your own host, capture and reverse its wire protocol,
+  stand up a minimal stub server (login → character → enter world → heartbeat),
+  and expose it locally or over frp/ngrok for multiplayer. Ships ten bash
+  workflows (doctor, init-workspace, triage, decode, patch-endpoint,
+  capture-traffic, proto-extract, frida-hook-run, server-bootstrap, tunnel-setup),
+  five stage playbooks with phase gates, protocol note templates (PKT-###),
+  failure catalog (F-REDIRECT / F-PROTO / F-SERVER / F-TUNNEL), and Python/Node
+  server stubs plus Frida hook templates. Covers Unity IL2CPP (Il2CppDumper,
+  string patch, DNS/adb reverse), weak-online JSON/XML in assets, native
+  Java/OkHttp/Retrofit, Protobuf and custom TCP/WebSocket framing, SSL capture,
+  SQLite persistence, and GitHub emulator discovery. Works with Cursor, Codex,
+  Claude Code, and ZCode via standard SKILL.md discovery. Hand off APK unpack to
+  apk-reverse, IL2CPP symbols to rev-u3d-dump, heavy Frida to rev-frida.
+when_to_use: >
+  User mentions server emulator, private server, game server rewrite, stub
+  server, protocol recovery, packet capture, Protobuf decode, IL2CPP, repack APK
+  to change API URL, DNS hijack, adb reverse, frp/ngrok tunnel, login handler,
+  character list API, offline game, discontinued game revival, or wants a
+  step-by-step case folder under cases/<slug>/ with evidence and ENGAGEMENT report.
+activation_keywords: server emulator private server protocol recovery IL2CPP protobuf stub server adb reverse frp ngrok mitmproxy frida jadx apktool login handler game server rewrite packet capture wire protocol Unity IL2CPP repack APK DNS hijack tunnel multiplayer
 ---
 
 ## ACTION REQUIRED (execute — do not stop at overview)

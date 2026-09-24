@@ -1,8 +1,10 @@
 # mobile-server-emulator-skill
 
-Universal Agent skill for **mobile game server emulator development** (Server Emulator Development).
+Universal Agent skill for **mobile game server emulator development** — a case-based workflow (redirect client → capture protocol → stub server → tunnel), not a single-game bypass.
 
-Works with Cursor, Codex, Claude Code, ZCode CLI, and any client that supports [Agent Skills](https://skills.sh/).
+**Includes:** 10 bash scripts, 5 stage playbooks, phase gates, protocol note templates, failure catalog, Python/Node server stubs, Frida hooks. **Engines:** Unity IL2CPP, Cocos, native Java/OkHttp. **Works with:** Cursor, Codex, Claude Code, ZCode CLI, [Agent Skills](https://skills.sh/).
+
+The skill directory ships `_meta.json` with a full display description and activation keywords so ZCode/Cursor skill pickers show rich text instead of the generic “skill in group X” placeholder.
 
 ## What it covers
 
