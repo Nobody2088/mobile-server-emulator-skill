@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# decode-client.sh — jadx + apktool 解包（薄封装 apk-reverse 思路）
-# 用法: bash decode-client.sh <apk_path> [--name slug] [--out dir] [--skip-jadx] [--skip-apktool]
+# decode-client.sh — jadx + apktool unpack (apk-reverse-style wrapper)
+# Usage: bash decode-client.sh <apk_path> [--name slug] [--out dir] [--skip-jadx] [--skip-apktool]
 
 set -euo pipefail
 

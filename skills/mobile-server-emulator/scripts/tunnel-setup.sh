@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# tunnel-setup.sh — 生成 frp / ngrok 配置片段
-# 用法: bash tunnel-setup.sh --tool frp|ngrok --local-port 8080 [--remote-port 8080] [--out DIR]
+# tunnel-setup.sh — generate frp / ngrok config snippet
+# Usage: bash tunnel-setup.sh --tool frp|ngrok --local-port 8080 [--remote-port 8080] [--out DIR]
 
 set -euo pipefail
 

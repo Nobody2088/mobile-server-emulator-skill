@@ -1,62 +1,50 @@
-# 登录与进场时序
+# Login and enter-world sequence
 
-客户端真正在乎的是**顺序**和**缺字段**，不是接口数量。对照 logcat 或连接日志，把下面每一跳标成：已观察到 / 未出现 / 已实现。
+Clients care about **order** and **missing fields**, not API count.
 
-## 1. 常见顺序
+## Typical order
 
 ```text
-1. 版本检查 / 热更清单     GET 资源或 JSON
-2. 登录服握手             HTTP 或短 TCP
-3. 账号校验               账号、设备、渠道
-4. 会话令牌               token / session / uid
-5. 区服列表               可能为空列表加一个默认服
-6. 选角或创角             角色摘要
-7. 游戏服连接             往往是另一个 host:port
-8. 全量或增量玩家数据     背包、货币、关卡
-9. 心跳                   固定间隔，断了就踢
-10. 业务消息              战斗、邮件、商店……按崩溃补
+1. Version / hotfix manifest
+2. Login server handshake
+3. Account validation
+4. Session token
+5. Realm / server list
+6. Character list or create
+7. Game server connect (often new host:port)
+8. Full or delta player data
+9. Heartbeat loop
+10. Gameplay messages (add on crash)
 ```
 
-第 7 步换地址是最常见的「登录成功但进不去」。`redirect-notes.md` 必须同时有登录服和游戏服。
+Step 7 is the usual “login OK but cannot enter world” failure — map both login and game hosts in `redirect-notes.md`.
 
-## 2. 每一跳要记的六项
+## Six fields per hop (in each PKT)
 
-复制到 `protocol/PKT-*.md`：
+1. Direction C→S or S→C
+2. Transport (HTTP path / TCP port / WS)
+3. Previous message ID
+4. Client behavior on success
+5. Client error text on failure
+6. Current server response
 
-1. 方向：C→S 或 S→C
-2. 传输：HTTP 路径 / TCP 端口 / WS 路径
-3. 关联：紧挨着的上一条消息编号
-4. 成功时客户端做了什么（进入下一界面、写本地缓存）
-5. 失败时客户端原文（logcat tag + 一行）
-6. 你的服务端现在返回什么
+## Minimal “in game” definition
 
-## 3. 最小闭环定义
+- Login accepted (no immediate network error)
+- ≥1 character/player payload
+- Heartbeat stable for 3 intervals
+- Main UI config present or client tolerates missing config (with evidence)
 
-同时满足才算「进了游戏」：
+## Heartbeat
 
-- 登录响应被客户端接受（没有立刻弹网络错误）
-- 至少一次角色或玩家数据响应
-- 心跳连续 3 次不断线
-- 主界面所需的静态配置有响应，或客户端允许配置缺失并有证据
+Document interval, initiator (client/server), timeout behavior. Implement in server read loop or timer — do not sleep blindly.
 
-金币数值是否很大与闭环无关。先让状态机往下走，再改存档字段。
+## Multi-connection patterns
 
-## 4. 心跳
+| Pattern | Server shape |
+|---------|--------------|
+| Single host | one listener |
+| Login + game | two ports or two processes |
+| Gateway | gateway handler first |
 
-观察到间隔后写进 `server/README`：
-
-- 间隔秒数
-- 谁主动发（客户端还是服务端）
-- 超时后客户端行为（重连、退回登录、闪退）
-
-服务端用一个定时器或在读循环里识别心跳包。不要用睡眠去「等客户端不崩」。
-
-## 5. 区服与多连接
-
-| 模式 | 识别 | 服务端 |
-|------|------|--------|
-| 单主机 | 全程同一 host | 一个端口 |
-| 登录服 + 游戏服 | 登录响应里带新 host/port | 两个监听，或同一进程两个端口 |
-| 网关 + 后端 | 先连网关再转发 | 先做网关，后端可以是函数调用 |
-
-登录响应里的「下一跳地址」必须指向你自己，否则阶段 1 等于没做完。
+Login response next-hop must point at **your** hosts after stage 1.

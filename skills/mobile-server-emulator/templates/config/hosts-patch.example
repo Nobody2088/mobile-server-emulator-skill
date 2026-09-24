@@ -1,11 +1,9 @@
-# DNS / hosts example (authorized preservation lab only)
+# DNS / hosts example
 # Router dnsmasq:
 #   address=/game-api.example.com/192.168.1.100
 #
 # Android hosts (root):
 #   192.168.1.100  game-api.example.com
-#   192.168.1.100  cdn.game.example.com
 #
-# Local adb reverse (same machine):
+# adb reverse (same machine):
 #   adb reverse tcp:8080 tcp:8080
-#   adb reverse tcp:9000 tcp:9000

@@ -1,29 +1,29 @@
-# 协议笔记 PKT-___
+# Protocol note PKT-___
 
-- 编号：
-- 版本三元组：
-- 方向：C→S | S→C
-- 传输：
-- 上一条：
-- 编码：JSON | Protobuf | 自定义帧 | 未解码
-- 证据：`capture/samples/...`
+- ID:
+- version triple:
+- direction: C→S | S→C
+- transport:
+- previous message:
+- encoding: JSON | Protobuf | custom frame | undecoded
+- evidence: `capture/samples/...`
 
-## 观察
+## Observation
 
 ```text
-长度:
-前 16 字节:
-帧头长度（未知则写未知）:
-字段或 JSON:
+length:
+first 16 bytes:
+header length (or unknown):
+fields or JSON:
 ```
 
-## 客户端行为
+## Client behavior
 
-- 成功时：
-- 失败时（logcat 原文一行）：
+- on success:
+- on failure (one logcat line):
 
-## 实现
+## Implementation
 
-- handler：
-- 结果：未做 | ok | protocol_error | unimplemented
-- 验证：
+- handler:
+- result: pending | ok | protocol_error | unimplemented
+- verification:

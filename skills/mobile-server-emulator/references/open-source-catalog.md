@@ -1,34 +1,34 @@
-# 开源 Server Emulator 检索指南
+# Open-source server emulator search
 
-开始写服务端之前，**先搜 GitHub**，很多停服游戏已有 preservation 项目。
+Search GitHub **before** writing handlers from scratch.
 
-## 搜索关键词
+## Queries
 
 ```
-"<游戏英文名>" server emulator
-"<游戏英文名>" private server
-"<包名>" protobuf
-"<游戏名>" revival project
-game preservation android
+"<game english name>" server emulator
+"<game english name>" private server
+"<package name>" protobuf
+"<game name>" revival project
+game server emulator android
 ```
 
-## 已知类型案例（学习架构，非通用插件）
+## Example archetypes (architecture reference only)
 
-| 类型 | 参考方向 |
-|------|----------|
-| Unity IL2CPP + TCP | Witcher Monster Slayer Revival（Frida + ASP.NET TCP） |
-| Protobuf + .NET | Idle 类卡牌 Idle.Emu |
-| Go + 自定义帧 | Azur Lane 方向 Belfast（技术博客） |
-| Blowfish HTTP + Socket.IO | Monster Hunter Explore Apypos |
-| DNS 劫持 + Python | Egg, Inc. reEgg |
+| Archetype | Direction |
+|-----------|-----------|
+| Unity IL2CPP + TCP | Frida redirect + custom TCP server |
+| Protobuf + .NET | packet handlers + `.proto` tree |
+| Go custom framing | transport + protobuf layers |
+| Blowfish HTTP + Socket.IO | encrypted REST + realtime room |
+| DNS hijack + Python | minimal HTTP stub |
 
-## 如何使用开源项目
+## How to use a hit
 
-1. Clone 后读 `README` 的 client patch 与 server 启动步骤
-2. 对照其 packet handler 目录结构
-3. 只 fork 协议层，不要假设加密相同
-4. 遵守项目 LICENSE 与 preservation 声明
+1. Read README for client patch + server start
+2. Mirror handler directory layout
+3. Do not assume encryption matches — verify version
+4. Respect project LICENSE
 
-## 无现成项目时
+## No hit
 
-按本 skill 四阶段从零推进；优先实现 login handler，其余按 log 补全。
+Follow this skill’s four stages; implement login handler first, extend from client errors.

@@ -1,47 +1,40 @@
-# 阶段 1：客户端地址重定向
+# Stage 1 · Client redirect
 
-按 [playbooks/02-redirect.md](../playbooks/02-redirect.md) 执行。退出条件在 [phase-gates.md](phase-gates.md)。失败对 [failure-catalog.md](failure-catalog.md) 的 `F-REDIRECT-*`。
+Follow [playbooks/02-redirect.md](../playbooks/02-redirect.md). Exit: [phase-gates.md](phase-gates.md). Failures: `F-REDIRECT-*`.
 
-目标：让游戏客户端连接你的本地或穿透服务端。
+Goal: client connects to your local or tunneled server.
 
-## 决策树
+## Decision tree
 
 ```
-有 root / 可改 DNS？
-├─ 是 → 优先 DNS/hosts（免改 APK）
-└─ 否 → 必须改包或 Frida hook connect()
+Can change DNS / adb reverse?
+├─ yes → prefer DNS or reverse (no repack)
+└─ no → repack or Frida connect hook
 
-引擎类型？
-├─ 弱联网（JSON/XML 配置）→ assets/ 或 res/ 改 URL
-├─ Unity IL2CPP → libil2cpp.so 字符串 patch 或 DNS
-├─ Cocos / Lua → assets 脚本或 .so 字符串
-└─ 原生 Java → smali / SharedPreferences / BuildConfig
+Engine?
+├─ weak online (JSON/XML in assets) → edit assets/res
+├─ Unity IL2CPP → string patch or DNS — unity-il2cpp.md
+├─ Cocos / Lua → assets or .so strings
+└─ native Java → smali or SharedPreferences
 ```
 
-## 弱联网手游
+## Weak-online games
 
 1. `apktool d game.apk -o apktool_out`
-2. 搜索 `grep -r "http" apktool_out/assets apktool_out/res`
-3. 修改 `.json` / `.xml` / `.lua` 中的 `serverUrl`、`api_host` 等
-4. 重打包签名安装（见 `scripts/patch-endpoint.sh`）
+2. `grep -r "http" apktool_out/assets apktool_out/res`
+3. Edit `serverUrl`, `api_host`, etc.
+4. Repack and sign — `patch-endpoint.sh`
 
-## Unity IL2CPP
+## DNS / hosts (no repack)
 
-详见 [unity-il2cpp.md](unity-il2cpp.md)。常见域名在 `lib/*/libil2cpp.so` 明文字符串中。
+- Router DNS or dnsmasq: `address=/api.game.com/192.168.x.x`
+- `adb reverse tcp:8080 tcp:8080` for local dev
 
-## 免改包：DNS / hosts
+## Frida redirect
 
-- **路由器 DNS**：将 `game-api.example.com` → `192.168.x.x`
-- **手机 hosts**（需 root）：`/system/etc/hosts`
-- **AdAway / 私人 DNS**：部分游戏只校验域名不校验 IP
-- **adb reverse**（本地开发）：`adb reverse tcp:8080 tcp:8080`
+Use `templates/frida/connect-redirect.js` to hook `connect()`.
 
-## Frida 重定向（不改 APK）
+## Evidence
 
-使用 `templates/frida/connect-redirect.js`：hook `connect()` 将官方 IP 替换为 `127.0.0.1:PORT`。
-
-## 输出证据
-
-- 修改的文件列表与前后 URL 对比
-- 或 DNS 配置截图 / `adb reverse` 命令
-- 客户端 logcat 中出现连向你的地址的连接尝试
+- File diffs or DNS config
+- Logcat/proxy showing connections to your host

@@ -1,35 +1,33 @@
 # Playbook 01 · Triage
 
-目标：用证据确定引擎、版本、官方主机候选和下一阶段路径。不改包。
+Goal: engine, version, official host candidates, next path. No repacking yet.
 
-## 步骤
+## Steps
 
-1. 确认 `00-scope.md` 是允许。
-2. 把 APK 放到 `cases/<slug>/client/apk/`（目录已被 gitignore 覆盖时仍不要提交）。
-3. 运行：
+1. Place APK under `cases/<slug>/client/apk/`.
+2. Run:
 
 ```bash
 bash scripts/doctor.sh | tee cases/<slug>/00-doctor.json
 bash scripts/triage-client.sh cases/<slug>/client/apk/game.apk | tee cases/<slug>/01-triage.json
 ```
 
-4. 若本机有 `aapt`：
+3. If `aapt` exists:
 
 ```bash
 aapt dump badging cases/<slug>/client/apk/game.apk | tee cases/<slug>/logs/badging.txt
 ```
 
-5. 打开 [engine-fingerprint.md](../references/engine-fingerprint.md)，复核 `engine`。不一致就在 `client/engine.md` 写明以哪个文件为准。
-6. 按 [open-source-catalog.md](../references/open-source-catalog.md) 搜索。把仓库 URL 或「无」写进 `REPORT.md`。
-7. 读 [routing.md](../routing.md)，只打开下一阶段那一个 playbook。
+4. Review with [engine-fingerprint.md](../references/engine-fingerprint.md). Document in `client/engine.md` if triage differs.
+5. Search GitHub per [open-source-catalog.md](../references/open-source-catalog.md). Record URL or “none” in `REPORT.md`.
+6. Read [routing.md](../routing.md) and open the next playbook only.
 
-## 合格输出
+## Done when
 
-- `01-triage.json` 含 `package`、`engine`、`recommended_path`
-- 版本三元组：versionName、versionCode、ABI
-- 公开项目检索结论
+- `01-triage.json` has `package`, `engine`, `recommended_path`
+- Version triple recorded
+- Open-source search recorded
 
-## 停止
+## Stop
 
-- APK 不是 zip：停止，不跑 jadx
-- 授权不清：回到 legal-scope
+- APK is not a zip — do not run jadx

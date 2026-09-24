@@ -1,6 +1,5 @@
 /**
  * Generic SSL pinning bypass hints — customize per app.
- * Authorized analysis only.
  */
 Java.perform(function () {
   console.log("[ssl-unpin] loaded");

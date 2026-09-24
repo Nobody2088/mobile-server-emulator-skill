@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# doctor.sh — 探测本技能用到的工具，输出 JSON
-# 用法: bash doctor.sh
+# doctor.sh — probe tools used by this skill, emit JSON
+# Usage: bash doctor.sh
 
 set -euo pipefail
 

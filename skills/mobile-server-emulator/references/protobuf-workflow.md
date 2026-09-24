@@ -1,40 +1,37 @@
-# Protobuf 协议还原
+# Protobuf recovery
 
-配合 [playbooks/03-protocol.md](../playbooks/03-protocol.md) 与 [templates/protocol/PACKET.md](../templates/protocol/PACKET.md)。字段号只来自样本或反编译，不来自猜测。
+Use with [playbooks/03-protocol.md](../playbooks/03-protocol.md) and [PACKET.md](../templates/protocol/PACKET.md). Field numbers come from samples or decompile — never from guesses.
 
-现代手游常见 Google Protobuf 或同类二进制序列化。
+## Static
 
-## 静态提取
+1. jadx: `GeneratedMessageLite`, `parseFrom`, `toByteArray`
+2. IL2CPP: Il2CppDumper `dump.cs` for `Google.Protobuf`
+3. Rare: `.proto` / `.protogen` in assets
 
-1. **Java/Kotlin**：jadx 搜索 `extends GeneratedMessageLite`、`parseFrom`、`toByteArray`
-2. **IL2CPP**：Il2CppDumper 的 `dump.cs` 搜索 `Google.Protobuf`
-3. **已有 .proto**：部分游戏在 assets 留 `*.protogen` 或 `descriptor`
+## Dynamic
 
-## 动态提取
+1. Frida hook `parseFrom` / `toByteArray` — `templates/frida/protobuf-log.js`
+2. mitmproxy for cleartext JSON; save binary bodies as hex
 
-1. Frida hook `MessageLite.parseFrom` / `toByteArray`（见 `templates/frida/protobuf-log.js`）
-2. mitmproxy 若已是明文 JSON，直接记录；若是 binary body，保存 hex 样本
+## Rebuild `.proto`
 
-## 还原 .proto 步骤
+1. Collect hex samples per message type
+2. `protobuf-inspector` or `protoc --decode_raw`
+3. Draft `.proto`; verify with Python `google.protobuf` or Node `protobufjs`
 
-1. 收集多条同类型消息的 hex
-2. 使用 [protobuf-inspector](https://github.com/mildsunrise/protobuf-inspector) 或 `protoc --decode_raw`
-3. 推断 field number 与 wire type
-4. 手写 `.proto`，用 Python `google.protobuf` 或 Node `protobufjs` 验证编解码
-
-## 脚本
+## Script
 
 ```bash
 bash scripts/proto-extract.sh --jadx-dir ./jadx_out --out ./proto_work
 ```
 
-## 服务端使用
+## Server runtimes
 
-- Python：`pip install protobuf` + `message.ParseFromString(body)`
-- Node：`protobufjs` 加载 `.proto`
-- Go：`protoc --go_out`（适合高性能 emulator）
+- Python: `pip install protobuf`
+- Node: `protobufjs`
+- Go: `protoc --go_out` for high-throughput TCP emulators
 
-## 输出证据
+## Evidence
 
-- 至少一份可编译的 `.proto` 或 field map
-- 一条登录请求的 decode 示例（JSON 形式）
+- Compilable `.proto` or field map
+- One decoded login request as JSON

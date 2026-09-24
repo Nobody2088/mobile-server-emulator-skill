@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# proto-extract.sh — 在 jadx/apktool 输出中扫描 Protobuf 线索
-# 用法: bash proto-extract.sh --jadx-dir DIR [--apktool-dir DIR] [--out DIR]
+# proto-extract.sh — scan jadx/apktool output for Protobuf hints
+# Usage: bash proto-extract.sh --jadx-dir DIR [--apktool-dir DIR] [--out DIR]
 
 set -euo pipefail
 

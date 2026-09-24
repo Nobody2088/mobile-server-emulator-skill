@@ -1,49 +1,48 @@
-# 案件报告
+# Engagement report
 
-- slug：
-- 标题：
-- 包名：
-- 版本三元组：
-- 当前阶段：0 | 1 | 2 | 3 | 4
-- 授权结论（指向 `00-scope.md`）：
+- slug:
+- title:
+- package:
+- version triple:
+- current stage: 0 | 1 | 2 | 3 | 4
 
-## 检索
+## Search
 
-- 公开 emulator：
-- 选用路径：
+- public emulator:
+- chosen path:
 
-## 地址对照
+## Host mapping
 
-| 角色 | 官方 | 指向 | 证据 |
-|------|------|------|------|
-| 登录服 | | | |
-| 游戏服 | | | |
+| Role | Official | Target | Evidence |
+|------|----------|--------|----------|
+| Login | | | |
+| Game | | | |
 
-## 协议
+## Protocol
 
-| 编号 | 名称 | 编码 | 实现 |
-|------|------|------|------|
+| ID | Name | Encoding | Implemented |
+|----|------|----------|-------------|
 | PKT-001 | | | |
 
-## 服务端
+## Server
 
-- 启动命令：
-- 端口：
-- 数据库文件：
+- start command:
+- ports:
+- database:
 
-## 穿透
+## Tunnel
 
-| 用途 | 本地 | 远端 | 工具 |
-|------|------|------|------|
+| Use | Local | Remote | Tool |
+|-----|-------|--------|------|
 
-## 未完成
+## Open items
 
-- 
+-
 
-## 门禁
+## Gates
 
-- [ ] 阶段 0
-- [ ] 阶段 1
-- [ ] 阶段 2
-- [ ] 阶段 3
-- [ ] 阶段 4
+- [ ] Stage 0
+- [ ] Stage 1
+- [ ] Stage 2
+- [ ] Stage 3
+- [ ] Stage 4

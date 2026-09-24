@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# server-bootstrap.sh — 从 template 生成最小伪服务端
-# 用法: bash server-bootstrap.sh --slug NAME --lang python|node --out DIR
+# server-bootstrap.sh — generate minimal stub server from template
+# Usage: bash server-bootstrap.sh --slug NAME --lang python|node --out DIR
 
 set -euo pipefail
 

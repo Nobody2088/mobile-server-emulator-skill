@@ -1,56 +1,52 @@
-# 工具索引与 Bootstrap
+# Tool index and bootstrap
 
-执行工作流前探测本机工具。缺省时按「Bootstrap」列安装，**不要猜路径**。
+Probe tools before running playbooks. Install from the Bootstrap column — do not guess paths.
 
-## 核心工具
+## Core tools
 
-| 工具 | 用途 | 探测命令 | Bootstrap (macOS) |
-|------|------|----------|-------------------|
-| adb | 设备 / reverse | `adb version` | `brew install android-platform-tools` |
-| jadx | Java 反编译 | `jadx --version` | `brew install jadx` |
-| apktool | 解包 / 重打包 | `apktool --version` | `brew install apktool` |
-| frida-ps | 动态 Hook | `frida-ps --version` | `pip install frida-tools` |
-| mitmproxy | HTTPS 抓包 | `mitmproxy --version` | `brew install mitmproxy` |
-| Il2CppDumper | Unity 符号 | 存在可执行文件 | GitHub Release 手动下载 |
-| zipalign | APK 对齐 | `zipalign` | Android SDK build-tools |
-| apksigner | APK 签名 | `apksigner` | Android SDK build-tools |
+| Tool | Use | Check | Bootstrap (macOS) |
+|------|-----|-------|-------------------|
+| adb | device / reverse | `adb version` | `brew install android-platform-tools` |
+| jadx | Java decompile | `jadx --version` | `brew install jadx` |
+| apktool | unpack / repack | `apktool --version` | `brew install apktool` |
+| frida | dynamic hook | `frida-ps --version` | `pip install frida-tools` |
+| mitmproxy | HTTPS capture | `mitmproxy --version` | `brew install mitmproxy` |
+| Il2CppDumper | Unity symbols | binary on PATH | GitHub release |
+| zipalign | APK align | `zipalign` | Android SDK build-tools |
+| apksigner | APK sign | `apksigner` | Android SDK build-tools |
 
-## 可选工具
+## Optional
 
-| 工具 | 用途 |
-|------|------|
-| protoc | protobuf 编译 |
-| wireshark / tshark | pcap 分析 |
-| frpc / ngrok | 内网穿透 |
-| radare2 / ghidra | native 分析 |
+| Tool | Use |
+|------|-----|
+| protoc | compile protobuf |
+| wireshark / tshark | pcap |
+| frpc / ngrok | tunnel |
+| radare2 / ghidra | native |
 
-## 环境变量
+## Environment
 
-| 变量 | 说明 |
-|------|------|
-| `ANDROID_HOME` | SDK 路径，含 platform-tools |
-| `JAVA_HOME` | apktool / jadx 依赖 |
+| Variable | Purpose |
+|----------|---------|
+| `ANDROID_HOME` | SDK incl. platform-tools |
+| `JAVA_HOME` | jadx / apktool |
 
-## 脚本内探测
+Run `scripts/doctor.sh` first; install only what the current playbook needs.
 
-各 `scripts/*.sh` 在缺工具时会 stderr 提示 bootstrap 命令并以非 0 退出。
-
-先跑 `scripts/doctor.sh`，只安装当前 playbook 点名的工具。
-
-| 脚本 | 阶段 |
-|------|------|
-| `doctor.sh` | 立案 |
-| `init-workspace.sh` | 立案 |
+| Script | Stage |
+|--------|-------|
+| `doctor.sh` | workspace |
+| `init-workspace.sh` | workspace |
 | `triage-client.sh` | 0 |
 | `decode-client.sh` / `patch-endpoint.sh` | 1 |
 | `capture-traffic.sh` / `proto-extract.sh` / `frida-hook-run.sh` | 2 |
 | `server-bootstrap.sh` | 3 |
 | `tunnel-setup.sh` | 4 |
 
-## frida-server（设备侧）
+## frida-server on device
 
-1. `adb devices` 确认连接
-2. 从 [Frida releases](https://github.com/frida/frida/releases) 下载对应 arch 的 frida-server
+1. `adb devices`
+2. Download matching arch from [Frida releases](https://github.com/frida/frida/releases)
 3. `adb push frida-server /data/local/tmp/ && adb shell chmod 755 /data/local/tmp/frida-server`
 4. `adb shell /data/local/tmp/frida-server &`
-5. `frida-ps -U` 验证
+5. `frida-ps -U`

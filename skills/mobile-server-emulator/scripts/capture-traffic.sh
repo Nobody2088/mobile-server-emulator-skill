@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# capture-traffic.sh — 抓包环境检查与操作指引
-# 用法: bash capture-traffic.sh [--install-cert] [--device serial]
+# capture-traffic.sh — capture environment check and setup steps
+# Usage: bash capture-traffic.sh [--install-cert] [--device serial]
 
 set -euo pipefail
 
@@ -13,7 +13,7 @@ while [[ $# -gt 0 ]]; do
     --device) DEVICE="$2"; shift 2 ;;
     --help)
       cat <<'EOF'
-capture-traffic.sh — 检查 mitmproxy/adb，输出抓包步骤
+capture-traffic.sh — check mitmproxy/adb and print capture steps
 
 Steps:
   1. mitmproxy -p 8080  (or mitmweb)

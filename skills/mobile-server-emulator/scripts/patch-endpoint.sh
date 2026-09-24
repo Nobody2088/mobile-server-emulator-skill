@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# patch-endpoint.sh — 改址决策：grep 报告 + DNS/adb 指引
-# 用法: bash patch-endpoint.sh --mode assets|dns|report --dir apktool_out [--old URL] [--new URL]
+# patch-endpoint.sh — endpoint redirect: grep report + DNS/adb guidance
+# Usage: bash patch-endpoint.sh --mode assets|dns|report --dir apktool_out [--old URL] [--new URL]
 
 set -euo pipefail
 

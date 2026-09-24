@@ -1,5 +1,5 @@
 /**
- * Minimal preservation server stub — {{SLUG}}
+ * Minimal game server stub — {{SLUG}}
  */
 import express from "express";
 

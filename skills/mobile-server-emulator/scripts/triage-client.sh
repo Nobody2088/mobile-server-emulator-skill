@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# triage-client.sh — APK 指纹：引擎 / 网络栈 / 改址建议
-# 用法: bash triage-client.sh <apk_path> [--dry-run]
+# triage-client.sh — APK fingerprint: engine, network stack, redirect hint
+# Usage: bash triage-client.sh <apk_path> [--dry-run]
 
 set -euo pipefail
 

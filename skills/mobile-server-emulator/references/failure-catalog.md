@@ -1,52 +1,52 @@
-# 失败目录
+# Failure catalog
 
-先对症状编号，再改一处。每次尝试在 `logs/` 留命令和结果。两次没有新证据就停。
+Match symptom ID first, change one thing, log command + output under `logs/`. Stop after two attempts with no new evidence.
 
-## 重定向 `F-REDIRECT`
+## Redirect `F-REDIRECT`
 
-| ID | 症状 | 下一步 |
-|----|------|--------|
-| F-REDIRECT-01 | 代理里没有任何游戏流量 | 确认代理 IP、端口、模拟器是否走系统代理；有的引擎不走 HTTP 代理，改抓 TCP |
-| F-REDIRECT-02 | 只有系统流量，没有游戏 | 游戏可能直连 IP。用连接日志看目标 IP，再决定 DNS 是否无效 |
-| F-REDIRECT-03 | 证书错误后不再请求 | 证书未进系统信任区，或应用自带信任库。记录错误原文，静态查找信任库位置，不要反复安装同一张用户证书 |
-| F-REDIRECT-04 | 改了 assets 仍连旧域名 | 域名在 so 或热更包。用 triage 的引擎结论换路径 |
-| F-REDIRECT-05 | 登录服通了，游戏服仍是官方 | 登录响应里的下一跳地址没改。回到 login-sequence 第 7 步 |
-| F-REDIRECT-06 | 仅模拟器可用 | `adb reverse` 只影响该设备。真机改用局域网 IP 或 DNS |
+| ID | Symptom | Next step |
+|----|---------|-----------|
+| F-REDIRECT-01 | No game traffic in proxy | Check proxy IP/port; emulator system proxy; try raw TCP capture |
+| F-REDIRECT-02 | System traffic only | Game may use direct IP — inspect connect targets; DNS may be useless |
+| F-REDIRECT-03 | Cert error then silence | Cert not in trust store or app pins custom store — log exact error, find trust config |
+| F-REDIRECT-04 | Assets patched but old host | Host in `.so` or hot-update bundle — follow engine fingerprint |
+| F-REDIRECT-05 | Login server OK, game server official | Patch next-hop in login response — login-sequence step 7 |
+| F-REDIRECT-06 | Emulator only | `adb reverse` is device-local — use LAN IP or DNS on phone |
 
-## 协议 `F-PROTO`
+## Protocol `F-PROTO`
 
-| ID | 症状 | 下一步 |
-|----|------|--------|
-| F-PROTO-01 | 包体是乱码 | 先分清压缩、加密、还是错位。记录前 16 字节和总长度 |
-| F-PROTO-02 | `protoc --decode_raw` 失败 | 前面可能有帧头。按 2 字节、4 字节尝试去掉头部再解码，把成功的头长写入 PKT |
-| F-PROTO-03 | 字段号对但字符串乱码 | 字节序或 UTF-16。把原始 hex 留在 PKT，不要改业务逻辑 |
-| F-PROTO-04 | 客户端收到包立刻断开 | 用笔记对比长度、字段号、必填字段。缺一个必填字段就补一个，不要一次改完 |
-| F-PROTO-05 | JSON 字段名不对 | 以客户端解析代码里的名字为准，改服务端，不改笔记里的观察 |
+| ID | Symptom | Next step |
+|----|---------|-----------|
+| F-PROTO-01 | Body looks random | Separate compression vs encryption vs misaligned frame — log first 16 bytes + length |
+| F-PROTO-02 | `protoc --decode_raw` fails | Try stripping 2/4-byte header; record working header size in PKT |
+| F-PROTO-03 | Field numbers OK, strings garbage | Endianness or UTF-16 — keep raw hex in PKT |
+| F-PROTO-04 | Client disconnects on response | Diff length, required fields one at a time |
+| F-PROTO-05 | JSON field names wrong | Match client parser names in server, not guesses |
 
-## 服务端 `F-SERVER`
+## Server `F-SERVER`
 
-| ID | 症状 | 下一步 |
-|----|------|--------|
-| F-SERVER-01 | 端口未听 | `lsof -nP -iTCP:<port> -sTCP:LISTEN`，把结果写入 logs |
-| F-SERVER-02 | 进程在听但客户端超时 | 防火墙、绑定地址不是 `0.0.0.0`、或客户端连的不是这个端口 |
-| F-SERVER-03 | 未知请求刷屏 | 每条未知消息建 PKT，然后加具名 handler。禁止只靠兜底 |
-| F-SERVER-04 | 重启后角色丢失 | 确认 SQLite 路径在案件 `server/`，不是临时目录 |
-| F-SERVER-05 | 心跳一停就回登录 | 按观察到的间隔回复，间隔写进 REPORT |
+| ID | Symptom | Next step |
+|----|---------|-----------|
+| F-SERVER-01 | Port not listening | `lsof -nP -iTCP:<port> -sTCP:LISTEN` → logs |
+| F-SERVER-02 | Listening but client timeout | Firewall, bind address, wrong port in client |
+| F-SERVER-03 | Unknown request spam | One PKT per message + named handler — no permanent catch-all |
+| F-SERVER-04 | Progress lost on restart | SQLite under `cases/<slug>/server/` |
+| F-SERVER-05 | Heartbeat stop → login screen | Reply at observed interval; document in REPORT |
 
-## 穿透 `F-TUNNEL`
+## Tunnel `F-TUNNEL`
 
-| ID | 症状 | 下一步 |
-|----|------|--------|
-| F-TUNNEL-01 | 本机可以，frp 不行 | 先确认 frpc 日志里的 remote port 与客户端写的端口一致 |
-| F-TUNNEL-02 | 偶发断开 | 看是心跳超时还是隧道超时，分别改游戏心跳和服务端隧道超时，一次改一个 |
-| F-TUNNEL-03 | 朋友连上但是空档 | 确认大家连的是同一个 DB 文件 |
+| ID | Symptom | Next step |
+|----|---------|-----------|
+| F-TUNNEL-01 | Local OK, frp fails | Match frpc remote port to client config |
+| F-TUNNEL-02 | Random drops | Heartbeat vs tunnel timeout — fix one at a time |
+| F-TUNNEL-03 | Peer connects but empty state | Same SQLite file for all clients |
 
-## 记录格式
+## Log format
 
 ```text
-症状: F-PROTO-04
-证据: logs/2026-09-24-login.txt
-改动: server/handlers/login.py 补 field 3
-结果: 仍断开 / 进入选角
-新证据: protocol/PKT-004.md
+symptom: F-PROTO-04
+evidence: logs/2026-09-24-login.txt
+change: server/handlers/login.py add field 3
+result: still disconnect / reached character select
+new evidence: protocol/PKT-004.md
 ```

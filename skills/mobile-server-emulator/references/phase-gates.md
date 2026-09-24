@@ -1,73 +1,70 @@
-# 阶段门禁
+# Phase gates
 
-没有退出证据就留在当前阶段。下面每一条都要在 `REPORT.md` 打勾并写证据编号。
+Do not advance without exit evidence. Check boxes in `REPORT.md` with evidence IDs.
 
-## 阶段 0 · Triage
+## Stage 0 · Triage
 
-**进入：** `00-scope.md` 结论为允许。
+**Enter:** Case workspace exists.
 
-**退出：**
+**Exit:**
 
-- [ ] `01-triage.json` 存在，且 `engine` 不是空字符串
-- [ ] 写明版本号或 APK 文件名
-- [ ] `recommended_path` 已抄到 `REPORT.md`
-- [ ] 已用 [open-source-catalog.md](open-source-catalog.md) 的关键词搜过，并记录「有公开项目 / 没有」
+- [ ] `01-triage.json` with non-empty `engine`
+- [ ] Version triple recorded (versionName, versionCode, ABI)
+- [ ] `recommended_path` copied to `REPORT.md`
+- [ ] GitHub search per [open-source-catalog.md](open-source-catalog.md) — hit or “none”
 
-**失败退回：** 文件打不开。换 `unzip -t` 确认是不是 zip/apk，不要直接跑 jadx。
+**Rollback:** APK not a zip → `unzip -t` before jadx.
 
-## 阶段 1 · 重定向
+## Stage 1 · Redirect
 
-**进入：** 阶段 0 退出条件全满足。
+**Enter:** Stage 0 complete.
 
-**退出：**
+**Exit:**
 
-- [ ] `client/redirect-notes.md` 有官方主机与目标主机
-- [ ] 有一条运行时证据：logcat、代理日志或连接日志，显示客户端向目标主机发起连接
-- [ ] 若改了包：记录改了哪个文件、旧值、新值，以及重签安装命令
+- [ ] `client/redirect-notes.md` maps official → target hosts
+- [ ] Runtime proof: logcat, proxy, or connect log shows traffic to **your** host
+- [ ] If repacked: file list, old/new values, resign/install command
 
-**失败退回：** 客户端仍访问官方主机。回到 [failure-catalog.md](failure-catalog.md) 的 `F-REDIRECT-*`，不要开始写登录 handler。
+**Rollback:** Still hits official → [failure-catalog.md](failure-catalog.md) `F-REDIRECT-*`. Do not write login handlers yet.
 
-## 阶段 2 · 协议
+## Stage 2 · Protocol
 
-**进入：** 阶段 1 已证明流量到达你的机器或代理。
+**Enter:** Traffic reaches your machine or proxy.
 
-**退出：**
+**Exit:**
 
-- [ ] 至少一份 `protocol/PKT-*.md`，含方向、传输、样例结构
-- [ ] 登录相关的第一条消息已命名（哪怕字段尚未齐）
-- [ ] 写明编码：JSON / Protobuf / 自定义帧 / 仍加密
+- [ ] ≥1 `protocol/PKT-*.md` with direction, transport, sample structure
+- [ ] First login-related message named
+- [ ] Encoding chosen: JSON / Protobuf / custom frame / still encrypted
 
-**失败退回：** 只有密文。先记「加密仍在」，把样本长度和调用点写入笔记，再决定是否做动态观察。不要猜字段号。
+**Rollback:** Ciphertext only → note lengths and call sites; do not guess field numbers.
 
-## 阶段 3 · 服务端
+## Stage 3 · Server
 
-**进入：** 至少一条登录相关消息有笔记。
+**Enter:** ≥1 login-related PKT note.
 
-**退出：**
+**Exit:**
 
-- [ ] 服务端进程听在文档化的端口
-- [ ] 登录请求得到与笔记一致的成功形态（状态码、包体字段或空包约定）
-- [ ] 未知路径或未知包 ID 被记录，而不是静默 200 空转
-- [ ] 角色或进场所需的下一条消息有笔记或有显式 `TODO` 与客户端报错原文
+- [ ] Server listening on documented port
+- [ ] Login response matches note (status/body)
+- [ ] Unknown paths/packet IDs logged, not silently dropped
+- [ ] Next post-login message has note or explicit TODO + client error text
 
-**失败退回：** 客户端登录后立刻断开。对一下笔记里的字段和字节序，见 `F-PROTO-*`。
+**Rollback:** Disconnect after login → compare note fields/endianness (`F-PROTO-*`).
 
-## 阶段 4 · 穿透
+## Stage 4 · Tunnel
 
-**进入：** 本机回环或 `adb reverse` 已经能登录。先本机，后公网。
+**Enter:** Local loopback or `adb reverse` login works.
 
-**退出：**
+**Exit:**
 
-- [ ] 映射表：本地端口、远端端口、工具（adb reverse / frp / ngrok）
-- [ ] 第二网络环境或第二台设备的连接证据
-- [ ] 数据只在服务端数据库，穿透配置里没有角色数据
+- [ ] Port map: local, remote, tool
+- [ ] Second network/device connection proof
+- [ ] Game state only in server DB, not in tunnel config
 
-**失败退回：** 只在模拟器里成功、真机失败。先查代理、证书、DNS，再查端口。
+**Rollback:** Emulator OK, phone fails → proxy, cert, DNS, ports.
 
-## 全局停止
+## Global stop
 
-出现下列任一情况，停止实现并更新报告：
-
-- 授权结论变成停止
-- 同一症状两次没有新证据
-- 需要的密钥或官方材料不在授权范围内
+- Same symptom twice with no new evidence
+- Missing materials needed for the next hop

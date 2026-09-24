@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# frida-hook-run.sh — Frida 注入封装（spawn / attach）
-# 用法: bash frida-hook-run.sh --package PKG --script PATH [--spawn] [--device SERIAL]
+# frida-hook-run.sh — Frida inject wrapper (spawn / attach)
+# Usage: bash frida-hook-run.sh --package PKG --script PATH [--spawn] [--device SERIAL]
 
 set -euo pipefail
 

@@ -1,5 +1,5 @@
 """
-Minimal preservation server stub — {{SLUG}}
+Minimal game server stub — {{SLUG}}
 Replace handlers with real protocol from capture / open-source reference.
 """
 from __future__ import annotations

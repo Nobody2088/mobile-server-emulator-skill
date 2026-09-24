@@ -1,8 +1,8 @@
-# 数据模型
+# Data model
 
-preservation 用一个 SQLite 文件。表只保留客户端真正读过的字段，其余放 JSON 列，避免过早拆表。
+One SQLite file per case. Keep columns the client actually reads; stash the rest in JSON until stable.
 
-## 1. 最小表
+## Minimal schema
 
 ```sql
 CREATE TABLE account (
@@ -29,26 +29,23 @@ CREATE TABLE inbox (
 );
 ```
 
-`blob_json` 放货币、关卡、背包等尚未稳定的结构。等同一字段被三个 handler 使用，再拆列。
+Promote fields from `blob_json` to columns after three handlers use them.
 
-## 2. 所有权
+## Ownership
 
-| 数据 | 写入者 | 读取者 |
+| Data | Writer | Reader |
 |------|--------|--------|
-| account / character | 登录与创角 handler | 后续所有需要身份的 handler |
-| inbox | 任何收到但未实现的消息 | 人，用来补协议 |
-| 穿透配置 | 不存业务 | — |
+| account / character | login, create handlers | all authenticated handlers |
+| inbox | unknown message capture | human protocol work |
 
-禁止把角色进度写进 frp 配置、环境变量或客户端包里。
+Game state stays in SQLite — not in frp config or client APK.
 
-## 3. 身份
+## Identity
 
-登录成功后，后续请求用笔记里的字段认人：`token`、`uid`、`session`。对不上就返回笔记中的未登录形态，并打日志。不要新建一套客户端不认识的 header。
+Use token/uid/session field names from PKT notes for post-login auth.
 
-## 4. 多人
+## Multiplayer
 
-多个账号共用一个库，用 `account_id` 隔离。不要为每个朋友起一个进程。区服如果协议里存在，就做 `realm_id` 列；协议里没有就不要发明。
+One DB, `account_id` isolation. Add `realm_id` only if protocol has realms.
 
-## 5. 备份
-
-改表前复制 `*.sqlite`。案件目录里保留 `server/schema.sql` 与当前库文件名。
+Backup DB before migrations; keep `server/schema.sql` in the case dir.
