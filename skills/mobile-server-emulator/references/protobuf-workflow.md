@@ -1,6 +1,8 @@
 # Protobuf 协议还原
 
-现代手游约 90% 使用 Google Protobuf 或类似二进制序列化。
+配合 [playbooks/03-protocol.md](../playbooks/03-protocol.md) 与 [templates/protocol/PACKET.md](../templates/protocol/PACKET.md)。字段号只来自样本或反编译，不来自猜测。
+
+现代手游常见 Google Protobuf 或同类二进制序列化。
 
 ## 静态提取
 

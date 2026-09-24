@@ -1,4 +1,5 @@
 # User artifacts — never commit
+cases/
 *.apk
 *.xapk
 *.aab

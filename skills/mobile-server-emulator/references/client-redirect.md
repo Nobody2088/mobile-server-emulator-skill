@@ -1,6 +1,8 @@
 # 阶段 1：客户端地址重定向
 
-目标：让游戏客户端连接你的本地/穿透服务端，而不是官方域名。
+按 [playbooks/02-redirect.md](../playbooks/02-redirect.md) 执行。退出条件在 [phase-gates.md](phase-gates.md)。失败对 [failure-catalog.md](failure-catalog.md) 的 `F-REDIRECT-*`。
+
+目标：让游戏客户端连接你的本地或穿透服务端。
 
 ## 决策树
 

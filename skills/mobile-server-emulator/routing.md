@@ -1,6 +1,6 @@
 # 游戏类型路由
 
-根据 `triage-client.sh` 的 JSON 输出选择路径。
+根据 `triage-client.sh` 的 JSON，并用 [references/engine-fingerprint.md](references/engine-fingerprint.md) 复核后选择路径。一次只打开一个 playbook。
 
 ## 路由表
 

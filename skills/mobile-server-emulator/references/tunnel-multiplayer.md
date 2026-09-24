@@ -1,5 +1,7 @@
 # 阶段 4：穿透与多人联机
 
+按 [playbooks/05-tunnel.md](../playbooks/05-tunnel.md)。本机闭环之前不要开公网端口。失败对 `F-TUNNEL-*`。
+
 ## 本地开发（同一台电脑）
 
 ```bash

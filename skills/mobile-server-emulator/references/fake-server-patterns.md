@@ -1,6 +1,8 @@
-# 阶段 3：最小伪服务端模式
+# 阶段 3：最小服务端模式
 
-目标：用最小代码让客户端「认为」登录成功并进入可玩状态。
+按 [playbooks/04-server.md](../playbooks/04-server.md)、[handler-contract.md](handler-contract.md)、[data-model.md](data-model.md) 执行。登录顺序见 [login-sequence.md](login-sequence.md)。
+
+目标：用与协议笔记一致的响应，让客户端走完登录、角色、心跳。
 
 ## 闭环优先级
 

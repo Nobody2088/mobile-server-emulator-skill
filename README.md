@@ -12,12 +12,17 @@
 
 **不适用于**仍在运营的商业手游未授权私服、伪造充值或分发改包牟利。
 
-## 四阶段工作流
+## 作业方式
 
-1. **客户端重定向** — 改 APK 地址 / DNS 劫持 / adb reverse
-2. **抓包与协议还原** — HTTPS 解密、Protobuf、自定义帧
-3. **最小伪服务端** — 登录闭环 → 角色数据 → 进场
-4. **穿透与联机** — frp / ngrok / adb reverse
+技能按案件目录推进，不在仓库里放 APK 或抓包。
+
+1. 读 `references/legal-scope.md`，写下允许或停止。
+2. `scripts/init-workspace.sh` 建立 `cases/<slug>/`。
+3. `scripts/doctor.sh` 与 `scripts/triage-client.sh`。
+4. 按 playbook 01→05 做完阶段门禁再进入下一步。
+5. 用 `templates/report/ENGAGEMENT.md` 结案。
+
+四阶段仍然是：重定向 → 协议 → 最小服务端 → 穿透。明细在 `playbooks/` 与 `references/phase-gates.md`、`failure-catalog.md`。
 
 ## 安装
 

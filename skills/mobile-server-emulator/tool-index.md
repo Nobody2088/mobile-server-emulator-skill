@@ -35,6 +35,18 @@
 
 各 `scripts/*.sh` 在缺工具时会 stderr 提示 bootstrap 命令并以非 0 退出。
 
+先跑 `scripts/doctor.sh`，只安装当前 playbook 点名的工具。
+
+| 脚本 | 阶段 |
+|------|------|
+| `doctor.sh` | 立案 |
+| `init-workspace.sh` | 立案 |
+| `triage-client.sh` | 0 |
+| `decode-client.sh` / `patch-endpoint.sh` | 1 |
+| `capture-traffic.sh` / `proto-extract.sh` / `frida-hook-run.sh` | 2 |
+| `server-bootstrap.sh` | 3 |
+| `tunnel-setup.sh` | 4 |
+
 ## frida-server（设备侧）
 
 1. `adb devices` 确认连接
