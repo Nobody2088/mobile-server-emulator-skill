@@ -6,18 +6,21 @@ Clients care about **order** and **missing fields**, not API count.
 
 ```text
 1. Version / hotfix manifest
-2. Login server handshake
-3. Account validation
-4. Session token
-5. Realm / server list
-6. Character list or create
-7. Game server connect (often new host:port)
-8. Full or delta player data
-9. Heartbeat loop
-10. Gameplay messages (add on crash)
+2. Register, guest create, or channel uid+token
+3. Login → user id + login token
+4. Realm / server list (host and port must be yours)
+5. Character list
+6. Create character when the list is empty
+7. Enter game → gate host, port, and gate token
+8. Gateway auth on the game connection
+9. Full or delta player data
+10. Heartbeat loop
+11. Gameplay messages (add on crash)
 ```
 
-Step 7 is the usual “login OK but cannot enter world” failure — map both login and game hosts in `redirect-notes.md`.
+Field checklist for register, login, create character, and enter game: [account-flow.md](account-flow.md).
+
+Step 7 is the usual “login OK but cannot enter world” failure. The enter-game response must name your gateway, not only the APK patch.
 
 ## Six fields per hop (in each PKT)
 

@@ -60,7 +60,10 @@ Do not advance without exit evidence. Check boxes in `REPORT.md` with evidence I
 **Exit:**
 
 - [ ] Server listening on documented port
-- [ ] Login response matches note (status/body)
+- [ ] Register or guest-create, login, and create-character each have a PKT note or an explicit "client has no such message"
+- [ ] Login response includes a login token and a server list whose host is yours
+- [ ] Create-character accepts only a class or avatar id listed in `docs/master-data/characters.md`
+- [ ] Enter-game returns your gateway host, port, and a gate token
 - [ ] Unknown paths/packet IDs logged, not silently dropped
 - [ ] Next post-login message has note or explicit TODO + client error text
 

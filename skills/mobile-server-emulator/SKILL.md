@@ -1,6 +1,6 @@
 ---
 name: mobile-server-emulator
-description: 端到端 Android 手游服务端模拟器工作流。先深解包客户端，把网关、更新、热更、资源、登录、区服、公告和远程配置全部记下来，再改到自己的内网地址或域名。把人物、怪物、地图、活动、道具、技能、任务写成文档，服务端只使用这些编号。随后抓包还原协议，从登录、角色、进图到心跳搭起伪服务端。用于服务端模拟器、私服、协议还原、IL2CPP、伪服务端或游戏服务端重写。
+description: 端到端 Android 手游服务端模拟器工作流。先深解包客户端，把网关、更新、热更、资源、登录、区服、公告和远程配置改到自己的内网地址或域名。把人物、怪物、地图、活动、道具、技能、任务写成文档。注册、登录、选服、创角、进游戏按客户端字段返回账号令牌、角色列表和网关令牌。随后抓包还原协议并搭起伪服务端。用于服务端模拟器、私服、协议还原、IL2CPP、伪服务端或游戏服务端重写。
 when_to_use: Use when the user mentions server emulator, private server, game server rewrite, stub server, protocol recovery, packet capture, Protobuf, IL2CPP, repack APK, DNS hijack, adb reverse, frp, ngrok, login handler, or a case folder with an engagement report.
 activation_keywords: server emulator, private server, protocol recovery, IL2CPP, protobuf, stub server, adb reverse, frp, ngrok, mitmproxy, frida, jadx, apktool, game server rewrite, packet capture
 ---
@@ -50,6 +50,7 @@ Topic references (open on demand):
 - [protobuf-workflow.md](references/protobuf-workflow.md)
 - [wire-protocol.md](references/wire-protocol.md)
 - [login-sequence.md](references/login-sequence.md)
+- [account-flow.md](references/account-flow.md)
 - [handler-contract.md](references/handler-contract.md)
 - [data-model.md](references/data-model.md)
 - [fake-server-patterns.md](references/fake-server-patterns.md)

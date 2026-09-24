@@ -45,10 +45,13 @@ File: `docs/endpoints.md` (also linked from `client/endpoints.md`).
 Which call must succeed before the next:
 
 1. Update / version check
-2. Gateway (returns the game host)
-3. Login
-4. Character list
-5. Enter map
+2. Register, guest create, or channel login
+3. Login token and server list
+4. Character list or create character
+5. Enter game, then gateway auth
+6. Enter map
+
+Account fields: [account-flow.md](account-flow.md).
 
 File: `docs/boot-sequence.md`. A later call that fires before an earlier one succeeds is a missing handler, not a random crash.
 

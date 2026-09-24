@@ -7,7 +7,7 @@ Goal: responses match protocol notes, not template field names. Read [fake-serve
 1. If a public emulator matches **your APK version**, reuse its protocol definitions when license allows.
 2. `bash scripts/server-bootstrap.sh --slug <slug> --lang python --out cases/<slug>/server`
 3. Rename template routes/fields to match PKT notes. Remove wrong placeholders.
-4. Add one login-sequence hop at a time; restart server; record result in each PKT.
+4. Implement register, login, server list, create character, and enter game in that order. Field list: [account-flow.md](../references/account-flow.md). One hop at a time; restart; record the result in each PKT. The enter-game response must return your gateway host and a gate token.
 5. Unknown messages → inbox table or logs → new PKT.
 6. Copy SQLite before schema changes.
 

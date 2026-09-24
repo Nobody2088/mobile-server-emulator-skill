@@ -8,15 +8,22 @@ One SQLite file per case. Keep columns the client actually reads; stash the rest
 CREATE TABLE account (
   id INTEGER PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
-  token TEXT NOT NULL,
+  password_hash TEXT,
+  device_id TEXT,
+  channel_uid TEXT,
+  login_token TEXT,
   created_at TEXT NOT NULL
 );
 
 CREATE TABLE character (
   id INTEGER PRIMARY KEY,
   account_id INTEGER NOT NULL REFERENCES account(id),
+  server_id TEXT NOT NULL DEFAULT '1',
   name TEXT NOT NULL,
   level INTEGER NOT NULL DEFAULT 1,
+  class_id TEXT,
+  map_id TEXT,
+  gate_token TEXT,
   blob_json TEXT NOT NULL DEFAULT '{}'
 );
 
