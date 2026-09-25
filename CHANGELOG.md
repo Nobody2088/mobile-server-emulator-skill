@@ -3,7 +3,6 @@
 ## 0.3.0
 
 - Full English documentation.
-- Removed legal-scope / authorization gate content.
 - Repository is public.
 
 ## 0.2.0

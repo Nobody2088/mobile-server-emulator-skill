@@ -27,7 +27,7 @@ game server emulator android
 1. Read README for client patch + server start
 2. Mirror handler directory layout
 3. Do not assume encryption matches — verify version
-4. Respect project LICENSE
+4. Record upstream commit hash and version in `REPORT.md`
 
 ## No hit
 
