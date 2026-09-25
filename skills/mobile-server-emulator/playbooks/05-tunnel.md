@@ -17,4 +17,4 @@ Goal: after local login works, another network reaches the **same** database. Re
 
 ## Exit
 
-Stage 4 gates. Tunnel up without second-device login is incomplete.
+Stage 4 exit checklist in [phase-gates.md](../references/phase-gates.md). Tunnel up without second-device login is incomplete.

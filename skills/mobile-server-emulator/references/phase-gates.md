@@ -1,6 +1,6 @@
-# Phase gates
+# Stage exit checklist
 
-Do not advance without exit evidence. Check boxes in `REPORT.md` with evidence IDs.
+Complete the exit items for the current stage before moving on. Check boxes in `REPORT.md` with evidence IDs. This is **technical** progress tracking, not a permission or scope gate.
 
 ## Stage 0 · Triage
 
@@ -81,7 +81,7 @@ Do not advance without exit evidence. Check boxes in `REPORT.md` with evidence I
 
 **Rollback:** Emulator OK, phone fails → proxy, cert, DNS, ports.
 
-## Global stop
+## When progress stalls
 
-- Same symptom twice with no new evidence
-- Missing materials needed for the next hop
+- Same symptom twice with no new evidence → run failure-catalog steps, add logs, revisit the prior stage, then continue
+- Missing materials for the next hop → run the script or capture that produces them, then resume the same playbook

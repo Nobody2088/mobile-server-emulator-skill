@@ -2,7 +2,7 @@
 
 Universal Agent skill for **mobile game server emulator development** — a case-based workflow (redirect client → capture protocol → stub server → tunnel), not a single-game bypass.
 
-**Includes:** 12 bash scripts, stage playbooks from triage through tunnel (including unpack), phase gates, protocol note templates, failure catalog, Python/Node server stubs, Frida hooks. **Engines:** Unity IL2CPP, Cocos, native Java/OkHttp. **Works with:** Cursor, Codex, Claude Code, ZCode CLI, [Agent Skills](https://skills.sh/).
+**Includes:** 12 bash scripts, stage playbooks from triage through tunnel (including unpack), stage exit checklists, protocol note templates, failure catalog, Python/Node server stubs, Frida hooks. **Engines:** Unity IL2CPP, Cocos, native Java/OkHttp. **Works with:** Cursor, Codex, Claude Code, ZCode CLI, [Agent Skills](https://skills.sh/).
 
 The skill directory ships `_meta.json` with a full display description and activation keywords so ZCode/Cursor skill pickers show rich text instead of the generic “skill in group X” placeholder.
 

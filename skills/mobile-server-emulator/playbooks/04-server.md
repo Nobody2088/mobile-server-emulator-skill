@@ -22,4 +22,4 @@ uvicorn main:app --host 0.0.0.0 --port 8080
 
 ## Exit
 
-Stage 3 gates in [phase-gates.md](../references/phase-gates.md). No heartbeat observed → do not claim “in game”.
+Stage 3 exit checklist: [phase-gates.md](../references/phase-gates.md). Verify heartbeat in logs before marking stage 3 complete.

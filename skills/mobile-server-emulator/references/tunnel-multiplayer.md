@@ -38,6 +38,6 @@ Template: `templates/config/frpc.example.toml`
 
 ## Ops
 
-- Do not expose unauthenticated admin on public tunnels
-- Use frp token / TLS
-- Do not publish captures or credentials
+- Use frp token / TLS on public endpoints
+- Bind admin/debug to localhost; expose only game HTTP/TCP ports through the tunnel
+- Keep tokens and pcaps under `cases/<slug>/`, not in the skill repo

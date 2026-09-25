@@ -39,7 +39,7 @@
 
 -
 
-## Gates
+## Stage exit checklist
 
 - [ ] Stage 0
 - [ ] Stage 1

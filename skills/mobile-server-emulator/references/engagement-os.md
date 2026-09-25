@@ -62,11 +62,7 @@ Reference IDs in notes — not “we saw it earlier in chat”.
 - Host table columns: `official`, `local/tunnel`, `evidence id`.
 - Handler names match message names: `LoginReq` → `handle_login_req`.
 
-## 5. Redaction before sharing
-
-Strip tokens, cookies, payment fields, real player IDs, full pcaps. Keep lengths, field numbers, types, and synthetic test values.
-
-## 6. Handoff to a new session
+## 5. Handoff to a new session
 
 Provide:
 

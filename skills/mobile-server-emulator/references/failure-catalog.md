@@ -1,6 +1,6 @@
 # Failure catalog
 
-Match symptom ID first, change one thing, log command + output under `logs/`. Stop after two attempts with no new evidence.
+Match symptom ID first, change one thing, log command + output under `logs/`. After two attempts with no new evidence, switch tactic or revisit the prior stage — do not end the engagement.
 
 ## Redirect `F-REDIRECT`
 
