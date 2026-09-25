@@ -21,6 +21,17 @@ The skill directory ships `_meta.json` with a full display description and activ
 3. Playbooks `01-triage`, `01-unpack`, then `02` through `05`, with exit checklists in `references/phase-gates.md`
 4. Close with `templates/report/ENGAGEMENT.md`
 
+## Maintainer push
+
+From the repo root (after local edits):
+
+```bash
+bash push-repo.sh
+# or: bash push-repo.sh "your commit message"
+```
+
+Commits any changes, pushes `origin`, and rsyncs the skill into `~/.agents/skills/mobile-server-emulator` and `~/.zcode/skills/mobile-server-emulator`.
+
 ## Install
 
 ### Global (Cursor / Codex)
