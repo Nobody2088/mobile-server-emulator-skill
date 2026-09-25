@@ -18,7 +18,7 @@ The skill directory ships `_meta.json` with a full display description and activ
 
 1. `scripts/init-workspace.sh` — create `cases/<slug>/`
 2. `scripts/doctor.sh` + `scripts/triage-client.sh`
-3. Playbooks `01-triage`, `01-unpack`, then `02` through `05`, with phase gates in `references/phase-gates.md`
+3. Playbooks `01-triage`, `01-unpack`, then `02` through `05`, with exit checklists in `references/phase-gates.md`
 4. Close with `templates/report/ENGAGEMENT.md`
 
 ## Install
